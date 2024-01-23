@@ -10,6 +10,34 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 
+def loginPage(driver):
+    email = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.ID, "user_session_email"))
+            ) 
+    email.send_keys("eabuzar@nwrpartnership.com")
+
+    password = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, "user_session_password"))
+    )
+    password.send_keys("Swisscheese-11")
+
+    loginButton = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.NAME, "commit"))
+    )
+    loginButton.click()
+
+def overview(driver):
+    FacilitiesButton = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, "facilities-nav-item"))
+    )
+    FacilitiesButton.click()
+
+def Facilities(driver):
+    SRP = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, "facilities-nav-item"))
+    )
+    SRP.click()
+
 def main():
     
     try:
@@ -19,20 +47,9 @@ def main():
         driver = webdriver.Chrome(options=options)
         driver.get("https://cntr.al/login")
         # Type in email, password, and press login
-        email = WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.ID, "user_session_email"))
-        )
-    
-        email.send_keys("eabuzar@nwrpartnership.com")
-        password = WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.ID, "user_session_password"))
-        )
-        password.send_keys("Swisscheese-11")
-
-        loginButton = WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.NAME, "commit"))
-        )
-        loginButton.click()
+        loginPage(driver)
+        overview(driver)
+        
     except:
         driver.quit()
 
