@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
 def loginPage(driver):
     email = WebDriverWait(driver, 5).until(
@@ -33,10 +34,15 @@ def overview(driver):
     FacilitiesButton.click()
 
 def Facilities(driver):
+
     SRP = WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.ID, "facilities-nav-item"))
+        EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[3]/table/tbody/tr/td[2]/strong/a"
+))
     )
-    SRP.click()
+    actionchain = ActionChains(driver=driver)
+    actionchain.move_to_element(SRP).click().perform()
+    
+
 
 def main():
     
@@ -49,6 +55,7 @@ def main():
         # Type in email, password, and press login
         loginPage(driver)
         overview(driver)
+        Facilities(driver)
         
     except:
         driver.quit()
