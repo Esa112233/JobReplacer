@@ -10,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.select import Select
 
 def loginPage(driver):
     email = WebDriverWait(driver, 5).until(
@@ -42,7 +43,20 @@ def Facilities(driver):
     actionchain = ActionChains(driver=driver)
     actionchain.move_to_element(SRP).click().perform()
     
-
+def AddButton(driver):
+    add = Select(WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[1]/div[1]/a"
+))
+    ))
+    add.select_by_index(10)
+    
+#     add = WebDriverWait(driver, 5).until(
+#         EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[1]/div[1]/ul/li[11]/a"
+# ))
+#     )
+#     add.click()
+    # actionchain = ActionChains(driver=driver)
+    # actionchain.move_to_element(add).click().perform()
 
 def main():
     
@@ -56,6 +70,7 @@ def main():
         loginPage(driver)
         overview(driver)
         Facilities(driver)
+        AddButton(driver)
         
     except:
         driver.quit()
