@@ -49,6 +49,10 @@ def AddButton(driver):
             EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[1]/div[1]/a/span"))
         )
         add_dropdown.click()
+        stream_tab = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Stream"))
+        )
+        stream_tab.click()
         # add_select = Select(add_dropdown)
         # add_select.select_by_visible_text("Stream")
 
@@ -99,5 +103,8 @@ def main():
 
 
 if __name__ == "__main__":
+    testinput = input("put input here: ")
+    numbers = [line.strip() for line in testinput.split('\n')]
+    print(testinput)
     main()
 
