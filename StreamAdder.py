@@ -11,6 +11,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.select import Select
+import pandas as pd
 
 def loginPage(driver):
     email = WebDriverWait(driver, 5).until(
@@ -76,8 +77,25 @@ def AddButton(driver):
 #     add.click()
     # actionchain = ActionChains(driver=driver)
     # actionchain.move_to_element(add).click().perform()
+def InsertStream(driver, mylist):
+    num_Streams = len(mylist)
 
-def main():
+    for name in mylist:
+        Name_input = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.ID, "stream_name"))
+            ) 
+        Name_input.send_keys(mylist[0])
+
+        saveButton = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.NAME, "commit"))
+        )
+        saveButton.click()
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, "alert-heading"))):
+            print("Alert shown")
+
+
+
+def main(mylist):
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
     driver = webdriver.Chrome(options=options)
@@ -90,6 +108,7 @@ def main():
         overview(driver)
         Facilities(driver)
         AddButton(driver)
+        InsertStream(driver, mylist)
         # addit = driver.find_element(By.XPATH,"/html/body/div[2]/div[2]/div[1]/div[1]/ul/li[11]/a")
         # print(addit)
         # actionchain = ActionChains(driver=driver)
@@ -103,8 +122,9 @@ def main():
 
 
 if __name__ == "__main__":
-    testinput = input("put input here: ")
-    numbers = [line.strip() for line in testinput.split('\n')]
-    print(testinput)
-    main()
+    PATH = "c:/Users/User/Desktop/File_Loc_For_Replacer/CNTRAL Database Corrections Submission.xlsx"
+    df = pd.read_excel(PATH,"Sheet1") # can also index sheet by name or fetch all sheets
+    mylist = df['TestStream'].dropna().tolist()
+    print(mylist)
+    main(mylist)
 
