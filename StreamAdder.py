@@ -44,11 +44,26 @@ def Facilities(driver):
     actionchain.move_to_element(SRP).click().perform()
     
 def AddButton(driver):
-    add = Select(WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[1]/div[1]/a"
-))
-    ))
-    add.select_by_index(10)
+    try:
+        add_dropdown = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[1]/div[1]/a/span"))
+        )
+        add_dropdown.click()
+        # add_select = Select(add_dropdown)
+        # add_select.select_by_visible_text("Stream")
+
+        # add_select.select_by_visible_text("Stream")
+        # add_dropdown.click()
+
+    except Exception as e:
+        print(f"Error in AddButton: {e}")
+        driver.quit()
+
+#     add = Select(WebDriverWait(driver, 5).until(
+#         EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[1]/div[1]/a"
+# ))
+#     ))
+#     add.select_by_visible_text("Stream")
     
 #     add = WebDriverWait(driver, 5).until(
 #         EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[1]/div[1]/ul/li[11]/a"
@@ -59,18 +74,23 @@ def AddButton(driver):
     # actionchain.move_to_element(add).click().perform()
 
 def main():
-    
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option("detach", True)
+    driver = webdriver.Chrome(options=options)
+    driver.get("https://cntr.al/login")
     try:
         # Setup for selenium and get cntr.al login page
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option("detach", True)
-        driver = webdriver.Chrome(options=options)
-        driver.get("https://cntr.al/login")
+        
         # Type in email, password, and press login
         loginPage(driver)
         overview(driver)
         Facilities(driver)
         AddButton(driver)
+        # addit = driver.find_element(By.XPATH,"/html/body/div[2]/div[2]/div[1]/div[1]/ul/li[11]/a")
+        # print(addit)
+        # actionchain = ActionChains(driver=driver)
+        # actionchain.move_to_element(addit).click().perform()
+        
         
     except:
         driver.quit()
