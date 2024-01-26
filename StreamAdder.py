@@ -82,32 +82,13 @@ def AddButtonAfterSave(driver):
             EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Stream"))
         )
         stream_tab.click()
-        # add_select = Select(add_dropdown)
-        # add_select.select_by_visible_text("Stream")
-
-
-        # add_select.select_by_visible_text("Stream")
-        # add_dropdown.click()
-
+        
     except Exception as e:
         print("exception in add button after save")
         print(f"Error in AddButton: {e}")
         driver.quit()
 
 
-#     add = Select(WebDriverWait(driver, 5).until(
-#         EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[1]/div[1]/a"
-# ))
-#     ))
-#     add.select_by_visible_text("Stream")
-   
-#     add = WebDriverWait(driver, 5).until(
-#         EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[1]/div[1]/ul/li[11]/a"
-# ))
-#     )
-#     add.click()
-    # actionchain = ActionChains(driver=driver)
-    # actionchain.move_to_element(add).click().perform()
 def InsertStream(driver, mylist):
     num_Streams = len(mylist)
     success_Elements = list()
