@@ -1,3 +1,4 @@
+import json
 from StreamAdder import By, webdriver, WebDriverWait, EC, time, Service, Options, WebElement, Keys, ActionChains, Select, pd
 
 
@@ -75,30 +76,66 @@ def get_Data():
     streamDict = dict()
 
     countstreams = 0
+    testingTags = list()
     for stream in stream_List:
         df2 = pd.read_excel(PATH,"Corrections Submission")
         tagsList = df2.loc[df2['Requested Update1'] == stream,'Tags'].dropna().tolist()
         streamDict[stream] = tagsList
+        testingTags.extend(tagsList)
         print(stream)
         countstreams+=1
     count = 0
+    with open("wrongTags.json", "w") as outfile: 
+        json.dump(streamDict, outfile)
     print(streamDict)
     print(f"number of streams: {countstreams}")
     for key in streamDict:
         print(f"{key} has {len(streamDict[key])} tags")
         count+= len(streamDict[key])
     print(f"total tags: {count}")
+    totalTags = get_Tags()
+    for i in testingTags:
+        if i not in totalTags:
+            print(f"{i} was not in the list")
+    
 
+def jsontest():
 
+    templist = list()
+    tempdict = dict()
+    fullTags = get_Tags()
+    f = open('C:/Users/User/Desktop/JobReplacer/JobReplacer/wrongTags.json','r')
+    data = json.loads(f.read())
+    count = 0
+    wrongTags = list(data.values())
+    print(len(wrongTags))
+    for i in wrongTags:
+        for n in i:
+            if n not in fullTags:
+                print(f"{i} not in full Tags")
+    # for i in fullTags:
+    #     if i in templist:
+    #         print(f"{i} is a duplicate")
+    #     else:
+    #         templist.append(i)
+    # for i in data:
+    #     for n in data[i]:
+    #         if n in tempdict:
+    #             print(f"{i} is a duplicate")
+    return count
+    
 
 
 if __name__ == "__main__":
 
-    myList = get_Tags()
-    print(len(myList))
+    # myList = get_Tags()
+    # print(myList)
+    #print(len(myList))
     # myListStream, tags, rows = get_DataTest()
     # print(rows)
-    #get_Data()
+    # get_Data()
+    jsontest()
+    
 
 
 
