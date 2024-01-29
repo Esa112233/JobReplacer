@@ -1,3 +1,4 @@
+import traceback
 from StreamAdder import By, webdriver, WebDriverWait, EC, time, Service, Options, WebElement, Keys, ActionChains, Select, pd
 from BulkEditorDefs import *
 
@@ -26,15 +27,17 @@ def main():
         loginPage(driver=driver)
         overview(driver=driver)
         bulk_Editor(driver=driver)
-        stream_And_Tags = get_data_Dict(driver=driver)
-        stream = "10 - AGO"
-        for stream in stream_And_Tags:
-            partitionedList, iterations = divideFifty(stream, stream_And_Tags)
-            print(partitionedList)
+        stream_And_Tags = get_data_Dict()
+        stream = "60 - 16-VE108 OVHD"
+        #for stream in stream_And_Tags:
+        partitionedList, iterations = divideFifty(stream, stream_And_Tags)
+        print("here")
 
 
-    except:
-        driver.quit()
+    except Exception as e:
+        print(e)
+        print(traceback.format_exc())
+        #driver.quit()
     return
 
 

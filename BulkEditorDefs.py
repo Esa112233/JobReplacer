@@ -75,10 +75,10 @@ def get_data_Dict():
     return data
 
 def divideFifty(stream, stream_And_Tags):
-    NumOfContainers = len(ceil(stream_And_Tags[stream])/50)
-    tags = list(stream_And_Tags[stream].values())
+    NumOfContainers = ceil(len(stream_And_Tags[stream])/50)
+    tags = stream_And_Tags[stream]
     print(tags)
-    return
+    return tags, NumOfContainers
     
 
 def get_Data_test():
