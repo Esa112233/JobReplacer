@@ -26,6 +26,13 @@ def main():
         loginPage(driver=driver)
         overview(driver=driver)
         bulk_Editor(driver=driver)
+        stream_And_Tags = get_data_Dict(driver=driver)
+        stream = "10 - AGO"
+        for stream in stream_And_Tags:
+            partitionedList, iterations = divideFifty(stream, stream_And_Tags)
+            print(partitionedList)
+
+
     except:
         driver.quit()
     return

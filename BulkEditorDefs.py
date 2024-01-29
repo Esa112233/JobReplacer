@@ -1,6 +1,6 @@
 import json
 from StreamAdder import By, webdriver, WebDriverWait, EC, time, Service, Options, WebElement, Keys, ActionChains, Select, pd
-
+from math import ceil
 
 def overview(driver):
 
@@ -67,7 +67,21 @@ def get_DataTest():
 
     return myList, tags, rows
 
-def get_Data():
+def get_data_Dict():
+
+    f = open('C:/Users/User/Desktop/JobReplacer/JobReplacer/wrongTags.json','r')
+    data = json.loads(f.read())
+    count = 0
+    return data
+
+def divideFifty(stream, stream_And_Tags):
+    NumOfContainers = len(ceil(stream_And_Tags[stream])/50)
+    tags = list(stream_And_Tags[stream].values())
+    print(tags)
+    return
+    
+
+def get_Data_test():
      
     PATH = "c:/Users/User/Desktop/File_Loc_For_Replacer/CNTRAL Database Corrections Submission.xlsx"
     df = pd.read_excel(PATH,"Sheet1") # can also index sheet by name or fetch all sheets
@@ -103,16 +117,29 @@ def jsontest():
 
     templist = list()
     tempdict = dict()
+    seen = set()
+    dupes = list()
     fullTags = get_Tags()
     f = open('C:/Users/User/Desktop/JobReplacer/JobReplacer/wrongTags.json','r')
     data = json.loads(f.read())
     count = 0
-    wrongTags = list(data.values())
-    print(len(wrongTags))
+    # wrongTags = list(data.values())
+    wrongTags = [tag for tags in data.values() for tag in tags]
+    print(f"{len(wrongTags)} wrongTags")
+    print(len(fullTags))
     for i in wrongTags:
-        for n in i:
-            if n not in fullTags:
-                print(f"{i} not in full Tags")
+        print(i)
+        if i not in fullTags:
+            print(f"{i} not in full Tags")
+    for x in fullTags:
+        print(x)
+        if x not in wrongTags:
+            dupes.append(x)
+        else:
+            seen.add(x)
+    print(len(seen))
+    print(dupes)
+    print(fullTags[1])
     # for i in fullTags:
     #     if i in templist:
     #         print(f"{i} is a duplicate")
@@ -126,17 +153,15 @@ def jsontest():
     
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    # myList = get_Tags()
-    # print(myList)
-    #print(len(myList))
-    # myListStream, tags, rows = get_DataTest()
-    # print(rows)
-    # get_Data()
-    jsontest()
-    
-
+#     # myList = get_Tags()
+#     # print(myList)
+#     #print(len(myList))
+#     # myListStream, tags, rows = get_DataTest()
+#     # print(rows)
+#     # get_Data()
+#     pass
 
 
 
