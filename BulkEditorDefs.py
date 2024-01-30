@@ -1,6 +1,7 @@
 import json
 from StreamAdder import By, webdriver, WebDriverWait, EC, time, Service, Options, WebElement, Keys, ActionChains, Select, pd
 from math import ceil
+import pyautogui
 
 def overview(driver):
 
@@ -117,10 +118,14 @@ def selectAll(driver):
     select_All.click()
 
 def bulkEditComponents(driver):
-    select_All = WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.ID, "bulk-edit"))
-    )
-    select_All.click()
+    # bulkEditButton = WebDriverWait(driver, 5).until(
+    #     EC.presence_of_element_located((By.ID, 'bulk-edit'))
+    # )
+    # bulkEditButton.click()
+    # ActionChains(driver).move_to_element(bulkEditButton).click().perform()
+    # bulkEditButton.click()
+    pyautogui.click(947, 1583)
+    
     
 
 def get_Data_test():
@@ -195,7 +200,11 @@ def jsontest():
     
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
+    # pyautogui.moveTo(170.13, 28)
+    # while True:
+    #     pos = pyautogui.position()
+    #     print(pos)
 
 #     # myList = get_Tags()
 #     # print(myList)
@@ -217,5 +226,5 @@ def jsontest():
     # print(len(tags))
     # print(myListStream[1])
     # print(tags[0])
-    
+    pass
 

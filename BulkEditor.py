@@ -8,6 +8,7 @@ from BulkEditorDefs import *
 
 
 
+
 def editReport(driver):
     editReportButton = WebDriverWait(driver, 5).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "body > div.container.top-margin > div.content.clearfix > div.page-header.clearfix > a:nth-child(1)"))
@@ -35,6 +36,7 @@ def main():
             firstEdit(driver, tags)
             for num in range(1, numOfContainers):
                 tags = partitionedListDict[num]
+                
                 
                 
 
