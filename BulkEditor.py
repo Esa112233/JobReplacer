@@ -28,10 +28,11 @@ def main():
         overview(driver=driver)
         bulk_Editor(driver=driver)
         stream_And_Tags = get_data_Dict()
-        stream = "60 - 16-VE108 OVHD"
+        stream = "20 - 2ND MEMBRANE FEED TO 12-PK107"
         #for stream in stream_And_Tags:
-        partitionedList, iterations = divideFifty(stream, stream_And_Tags)
-        print("here")
+        partitionedListDict, numOfContainers = divideFifty(stream, stream_And_Tags)
+        print(partitionedListDict)
+        print(numOfContainers)
 
 
     except Exception as e:

@@ -75,10 +75,26 @@ def get_data_Dict():
     return data
 
 def divideFifty(stream, stream_And_Tags):
+    partitionedListDict = dict()
     NumOfContainers = ceil(len(stream_And_Tags[stream])/50)
     tags = stream_And_Tags[stream]
-    print(tags)
-    return tags, NumOfContainers
+    for i in range(NumOfContainers):
+        tagsPartitionedTemp = list()
+        if len(tags) < 50:
+            for n in range(len(tags)):
+                tagsPartitionedTemp.append(tags[n])
+            for j in range(len(tags)):
+                tags.pop(0)
+        else:
+            for n in range(50):
+                tagsPartitionedTemp.append(tags[n])
+            for j in range(50):
+                tags.pop(0)
+        partitionedListDict[i] = tagsPartitionedTemp
+
+
+
+    return partitionedListDict, NumOfContainers
     
 
 def get_Data_test():
