@@ -92,9 +92,35 @@ def divideFifty(stream, stream_And_Tags):
                 tags.pop(0)
         partitionedListDict[i] = tagsPartitionedTemp
 
-
-
     return partitionedListDict, NumOfContainers
+    
+def firstEdit(driver, tags):
+    FieldTagNumbers = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, "report_search_params_field_tag_numbers"))
+    )
+    mystr = ','.join(tags)
+    FieldTagNumbers.send_keys(Keys.CONTROL + "a" + Keys.DELETE)
+    FieldTagNumbers.send_keys(mystr)
+    saveEdit(driver)
+    selectAll(driver)
+    
+def saveEdit(driver):
+    saveButton = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.NAME, "commit"))
+    )
+    saveButton.click()
+
+def selectAll(driver):
+    select_All = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, "select-all"))
+    )
+    select_All.click()
+
+def bulkEditComponents(driver):
+    select_All = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, "bulk-edit"))
+    )
+    select_All.click()
     
 
 def get_Data_test():
