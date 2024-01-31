@@ -62,9 +62,6 @@ def AddButton(driver):
         stream_tab.click()
         # add_select = Select(add_dropdown)
         # add_select.select_by_visible_text("Stream")
-
-
-        # add_select.select_by_visible_text("Stream")
         # add_dropdown.click()
 
     except Exception as e:

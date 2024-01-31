@@ -118,16 +118,24 @@ def selectAll(driver):
     select_All.click()
 
 def bulkEditComponents(driver):
-    # bulkEditButton = WebDriverWait(driver, 5).until(
-    #     EC.presence_of_element_located((By.ID, 'bulk-edit'))
-    # )
-    # bulkEditButton.click()
-    # ActionChains(driver).move_to_element(bulkEditButton).click().perform()
-    # bulkEditButton.click()
-    pyautogui.click(947, 1583)
-    
-    
+    bulkEditButton = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, 'bulk-edit'))
+    )
+    bulkEditButton.click()
 
+def pickStream(driver, stream):
+    streamCheck = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, 'stream_uid_enabled'))
+    )
+    streamCheck.click()
+
+    dropDown = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, 'emission_component_stream_uid'))
+    )
+
+    streamSelect = Select(dropDown)
+    streamSelect.select_by_visible_text(stream)
+    
 def get_Data_test():
      
     PATH = "c:/Users/User/Desktop/File_Loc_For_Replacer/CNTRAL Database Corrections Submission.xlsx"
@@ -226,5 +234,7 @@ if __name__ == "__main__":
     # print(len(tags))
     # print(myListStream[1])
     # print(tags[0])
+    # driver = 1
+    # bulkEditComponents(driver)
     pass
 

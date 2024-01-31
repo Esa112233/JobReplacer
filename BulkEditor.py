@@ -34,9 +34,12 @@ def main():
             partitionedListDict, numOfContainers = divideFifty(stream, stream_And_Tags)
             tags = partitionedListDict[0]
             firstEdit(driver, tags)
+            bulkEditComponents(driver)
+            pickStream(driver, stream)
             for num in range(1, numOfContainers):
                 tags = partitionedListDict[num]
-                
+                overview(driver=driver)
+                bulk_Editor(driver=driver)
                 
                 
 
@@ -63,4 +66,7 @@ if __name__ == "__main__":
     # PATH = "c:/Users/User/Desktop/File_Loc_For_Replacer/CNTRAL Database Corrections Submission.xlsx"
     # df = pd.read_excel(PATH,"Sheet1") # can also index sheet by name or fetch all sheets
     # Code in the part where it separates each csv into parts of 50
-    main()
+    hi = [1,2,3]
+    for i in range(1,len(hi)):
+        print("hi")
+    # main()
