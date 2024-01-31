@@ -5,7 +5,7 @@ import pyautogui
 
 def overview(driver):
 
-    FacilitiesButton = WebDriverWait(driver, 5).until(
+    FacilitiesButton = WebDriverWait(driver, 25).until(
         EC.presence_of_element_located((By.LINK_TEXT, "Reporting"))
     )
     FacilitiesButton.click()
@@ -31,7 +31,7 @@ def loginPage(driver):
 
 def bulk_Editor(driver):
         
-        bulk = WebDriverWait(driver, 5).until(
+        bulk = WebDriverWait(driver, 15).until(
             EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[2]/table/tbody[2]/tr[1]/td[5]/a[2]/i"))
         )
         bulk.click()
@@ -96,7 +96,7 @@ def divideFifty(stream, stream_And_Tags):
     return partitionedListDict, NumOfContainers
     
 def firstEdit(driver, tags):
-    FieldTagNumbers = WebDriverWait(driver, 5).until(
+    FieldTagNumbers = WebDriverWait(driver, 15).until(
         EC.presence_of_element_located((By.ID, "report_search_params_field_tag_numbers"))
     )
     mystr = ','.join(tags)
@@ -105,30 +105,30 @@ def firstEdit(driver, tags):
     
     
 def saveEdit(driver):
-    saveButton = WebDriverWait(driver, 5).until(
+    saveButton = WebDriverWait(driver, 25).until(
         EC.presence_of_element_located((By.NAME, "commit"))
     )
     saveButton.click()
 
 def selectAll(driver):
-    select_All = WebDriverWait(driver, 5).until(
+    select_All = WebDriverWait(driver, 15).until(
         EC.presence_of_element_located((By.ID, "select-all"))
     )
     select_All.click()
 
 def bulkEditComponents(driver):
-    bulkEditButton = WebDriverWait(driver, 5).until(
+    bulkEditButton = WebDriverWait(driver, 15).until(
         EC.presence_of_element_located((By.ID, 'bulk-edit'))
     )
     bulkEditButton.click()
 
 def pickStream(driver, stream):
-    streamCheck = WebDriverWait(driver, 5).until(
+    streamCheck = WebDriverWait(driver, 15).until(
         EC.presence_of_element_located((By.ID, 'stream_uid_enabled'))
     )
     streamCheck.click()
 
-    dropDown = WebDriverWait(driver, 5).until(
+    dropDown = WebDriverWait(driver, 15).until(
         EC.presence_of_element_located((By.ID, 'emission_component_stream_uid'))
     )
 
@@ -136,7 +136,7 @@ def pickStream(driver, stream):
     streamSelect.select_by_visible_text(stream)
 
 def saveFinal(driver):
-    saveButton = WebDriverWait(driver, 5).until(
+    saveButton = WebDriverWait(driver, 25).until(
         EC.presence_of_element_located((By.NAME, "commit"))
     )
     saveButton.click()

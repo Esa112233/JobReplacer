@@ -32,23 +32,25 @@ def main():
         
         for stream in stream_And_Tags:
             partitionedListDict, numOfContainers = divideFifty(stream, stream_And_Tags)
-            tags = partitionedListDict[0]
-            firstEdit(driver, tags)
-            saveEdit(driver)
-            selectAll(driver)
-            bulkEditComponents(driver)
-            pickStream(driver, stream)
-            saveFinal(driver)
-            for num in range(1, numOfContainers):
+            # tags = partitionedListDict[0]
+            # firstEdit(driver, tags)
+            # saveEdit(driver)
+            # selectAll(driver)
+            # bulkEditComponents(driver)
+            # pickStream(driver, stream)
+            # saveFinal(driver)
+            # overview(driver=driver)
+            # bulk_Editor(driver=driver)
+            for num in range(0, numOfContainers):
                 tags = partitionedListDict[num]
-                overview(driver=driver)
-                bulk_Editor(driver=driver)
                 firstEdit(driver, tags)
                 saveEdit(driver)
                 selectAll(driver)
                 bulkEditComponents(driver)
                 pickStream(driver, stream)
                 saveFinal(driver)
+                overview(driver=driver)
+                bulk_Editor(driver=driver)
                 
                 
 
