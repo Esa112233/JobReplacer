@@ -102,8 +102,7 @@ def firstEdit(driver, tags):
     mystr = ','.join(tags)
     FieldTagNumbers.send_keys(Keys.CONTROL + "a" + Keys.DELETE)
     FieldTagNumbers.send_keys(mystr)
-    saveEdit(driver)
-    selectAll(driver)
+    
     
 def saveEdit(driver):
     saveButton = WebDriverWait(driver, 5).until(
@@ -135,6 +134,12 @@ def pickStream(driver, stream):
 
     streamSelect = Select(dropDown)
     streamSelect.select_by_visible_text(stream)
+
+def saveFinal(driver):
+    saveButton = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.NAME, "commit"))
+    )
+    saveButton.click()
     
 def get_Data_test():
      
