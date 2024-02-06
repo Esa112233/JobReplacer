@@ -82,6 +82,26 @@ def updateTags(stream, num):
     with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','w') as f:
         f.write(newData)
 
+def midSave(num, partitionedListDict, stream):
+    for i in range(5):
+        partitionedListDict[stream].pop(0)
+
+    tagsList = partitionedListDict[stream]
+    fullList = list()
+    for block in tagsList:
+        fullList.extend(block)
+    updateSave(fullList, stream)
+    
+def updateSave(fullList, stream):
+    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','r') as f:
+        data = json.loads(f.read())
+        data.pop(stream)
+        data[stream] = fullList
+        newData = json.dumps(data, indent=4)
+    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','w') as f:
+        f.write(newData)
+
+
 
 
 
