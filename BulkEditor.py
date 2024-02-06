@@ -1,6 +1,7 @@
 import traceback
-from StreamAdder import By, webdriver, WebDriverWait, EC, time, Service, Options, WebElement, Keys, ActionChains, Select, pd
 from BulkEditorDefs import *
+from StreamAdder import By, webdriver, WebDriverWait, EC, time, Service, Options, WebElement, Keys, ActionChains, Select, pd
+
 
 
 
@@ -26,7 +27,7 @@ def main():
                 bulkEditComponents(driver)
                 pickStream(driver, stream)
                 saveFinal(driver)
-                if num % 5 == 0 and num != 0:
+                if num % 4 == 0 and num != 0:
                     midSave(num, partitionedListDict, stream)
                 overview(driver=driver)
                 bulk_Editor(driver=driver)
