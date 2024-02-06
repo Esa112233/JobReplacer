@@ -1,7 +1,7 @@
 import json
 from StreamAdder import By, webdriver, WebDriverWait, EC, time, Service, Options, WebElement, Keys, ActionChains, Select, pd
 from math import ceil
-import pyautogui
+
 
 def overview(driver):
 
@@ -70,37 +70,17 @@ def get_DataTest():
 
 def get_data_Dict():
 
-    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','r') as f:
+    with open('C:/Users/Brayden/Desktop/JobReplacer/JobReplacer/JobReplacer-bulkStarted/JobReplacer-bulkStarted/dynamicTags.json','r') as f:
         data = json.loads(f.read())
     return data
 
 def updateTags(stream, num):
-    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','r') as f:
+    with open('C:/Users/Brayden/Desktop/JobReplacer/JobReplacer/JobReplacer-bulkStarted/JobReplacer-bulkStarted/dynamicTags.json','r') as f:
         data = json.loads(f.read())
         data.pop(stream)
         newData = json.dumps(data, indent=4)
-    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','w') as f:
+    with open('C:/Users/Brayden/Desktop/JobReplacer/JobReplacer/JobReplacer-bulkStarted/JobReplacer-bulkStarted/dynamicTags.json','w') as f:
         f.write(newData)
-
-def midSave(num, partitionedListDict, stream):
-    for i in range(5):
-        partitionedListDict[stream].pop(0)
-
-    tagsList = partitionedListDict[stream]
-    fullList = list()
-    for block in tagsList:
-        fullList.extend(block)
-    updateSave(fullList, stream)
-    
-def updateSave(fullList, stream):
-    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','r') as f:
-        data = json.loads(f.read())
-        data.pop(stream)
-        data[stream] = fullList
-        newData = json.dumps(data, indent=4)
-    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','w') as f:
-        f.write(newData)
-
 
 
 
@@ -170,6 +150,32 @@ def saveFinal(driver):
         EC.presence_of_element_located((By.NAME, "commit"))
     )
     saveButton.click()
+
+def midSave(num, partitionedListDict, stream):
+
+    fullList = list()
+    for n in range(len(partitionedListDict)):
+        fullList.extend(partitionedListDict[n])
+
+    num = num-5
+    if len(fullList) < 250:
+        for i in range(len(fullList)):
+            fullList.pop(0)
+        updateSave(fullList, stream)
+    else:
+        for i in range(250):
+            fullList.pop(0)
+        updateSave(fullList, stream)
+    
+def updateSave(fullList, stream):
+    with open('C:/Users/Brayden/Desktop/JobReplacer/JobReplacer/JobReplacer-bulkStarted/JobReplacer-bulkStarted/dynamicTags.json','r') as f:
+        data = json.loads(f.read())
+        #data.pop(stream)
+        data[stream] = fullList
+        newData = json.dumps(data, indent=4)
+    with open('C:/Users/Brayden/Desktop/JobReplacer/JobReplacer/JobReplacer-bulkStarted/JobReplacer-bulkStarted/dynamicTags.json','w') as f:
+        f.write(newData)
+        print("saved!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     
 def get_Data_test():
      
