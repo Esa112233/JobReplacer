@@ -70,10 +70,20 @@ def get_DataTest():
 
 def get_data_Dict():
 
-    f = open('C:/Users/User/Desktop/JobReplacer/JobReplacer/wrongTags.json','r')
-    data = json.loads(f.read())
-    count = 0
+    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','r') as f:
+        data = json.loads(f.read())
     return data
+
+def updateTags(stream, num):
+    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','r') as f:
+        data = json.loads(f.read())
+        data.pop(stream)
+        newData = json.dumps(data, indent=4)
+    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','w') as f:
+        f.write(newData)
+
+
+
 
 def divideFifty(stream, stream_And_Tags):
     partitionedListDict = dict()
@@ -226,9 +236,6 @@ if __name__ == "__main__":
 #     # print(rows)
 #     # get_Data()
 #     pass
-
-
-
 
 
     # for (stream, tag) in zip(myListStream, tags):

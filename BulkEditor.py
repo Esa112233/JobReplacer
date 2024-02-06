@@ -4,21 +4,6 @@ from BulkEditorDefs import *
 
 
 
-
-
-
-
-
-def editReport(driver):
-    editReportButton = WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "body > div.container.top-margin > div.content.clearfix > div.page-header.clearfix > a:nth-child(1)"))
-    )
-    # editReportButton.click()
-    actionchain = ActionChains(driver=driver)
-    actionchain.move_to_element(editReportButton).click().perform()
-
-
-
 def main():
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
@@ -32,15 +17,7 @@ def main():
         
         for stream in stream_And_Tags:
             partitionedListDict, numOfContainers = divideFifty(stream, stream_And_Tags)
-            # tags = partitionedListDict[0]
-            # firstEdit(driver, tags)
-            # saveEdit(driver)
-            # selectAll(driver)
-            # bulkEditComponents(driver)
-            # pickStream(driver, stream)
-            # saveFinal(driver)
-            # overview(driver=driver)
-            # bulk_Editor(driver=driver)
+
             for num in range(0, numOfContainers):
                 tags = partitionedListDict[num]
                 firstEdit(driver, tags)
@@ -51,6 +28,7 @@ def main():
                 saveFinal(driver)
                 overview(driver=driver)
                 bulk_Editor(driver=driver)
+            updateTags(stream, num)
                 
                 
 
@@ -61,6 +39,7 @@ def main():
         print(e)
         print(traceback.format_exc())
         #driver.quit()
+    print("Done")
     return
 
 
