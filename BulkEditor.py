@@ -26,7 +26,7 @@ def main():
                 bulkEditComponents(driver)
                 pickStream(driver, stream)
                 saveFinal(driver)
-                if num % 5 == 0 and num != 0:
+                if num % 4 == 0 and num != 0:
                     midSave(num, partitionedListDict, stream)
                 overview(driver=driver)
                 bulk_Editor(driver=driver)

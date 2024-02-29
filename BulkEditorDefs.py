@@ -1,7 +1,7 @@
 import json
 from StreamAdder import By, webdriver, WebDriverWait, EC, time, Service, Options, WebElement, Keys, ActionChains, Select, pd
 from math import ceil
-import pyautogui
+
 
 def overview(driver):
 
@@ -47,8 +47,8 @@ def get_Streams():
 def get_Tags():
 
     PATH = "c:/Users/User/Desktop/File_Loc_For_Replacer/CNTRAL Database Corrections Submission.xlsx"
-    df = pd.read_excel(PATH,"Corrections Submission") # can also index sheet by name or fetch all sheets
-    myList = df['Tags'].dropna().tolist()
+    df = pd.read_excel(PATH,"Esa Fixes") # can also index sheet by name or fetch all sheets
+    myList = df['Tag'].dropna().tolist()
 
     return myList
 
@@ -81,26 +81,6 @@ def updateTags(stream, num):
         newData = json.dumps(data, indent=4)
     with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','w') as f:
         f.write(newData)
-
-def midSave(num, partitionedListDict, stream):
-    for i in range(5):
-        partitionedListDict[stream].pop(0)
-
-    tagsList = partitionedListDict[stream]
-    fullList = list()
-    for block in tagsList:
-        fullList.extend(block)
-    updateSave(fullList, stream)
-    
-def updateSave(fullList, stream):
-    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','r') as f:
-        data = json.loads(f.read())
-        data.pop(stream)
-        data[stream] = fullList
-        newData = json.dumps(data, indent=4)
-    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','w') as f:
-        f.write(newData)
-
 
 
 
@@ -170,26 +150,53 @@ def saveFinal(driver):
         EC.presence_of_element_located((By.NAME, "commit"))
     )
     saveButton.click()
+
+def midSave(num, partitionedListDict, stream):
+
+    fullList = list()
+    for n in range(len(partitionedListDict)):
+        fullList.extend(partitionedListDict[n])
+
+    num = num-5
+    if len(fullList) < 250:
+        for i in range(len(fullList)):
+            fullList.pop(0)
+        updateSave(fullList, stream)
+    else:
+        for i in range(250):
+            fullList.pop(0)
+        updateSave(fullList, stream)
+    
+def updateSave(fullList, stream):
+    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','r') as f:
+        data = json.loads(f.read())
+        #data.pop(stream)
+        data[stream] = fullList
+        newData = json.dumps(data, indent=4)
+    with open('C:/Users/User/Desktop/JobReplacer/JobReplacer/dynamicTags.json','w') as f:
+        f.write(newData)
+        print("saved!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     
 def get_Data_test():
      
     PATH = "c:/Users/User/Desktop/File_Loc_For_Replacer/CNTRAL Database Corrections Submission.xlsx"
-    df = pd.read_excel(PATH,"Sheet1") # can also index sheet by name or fetch all sheets
-    stream_List = df['NEW STREAMS'].dropna().tolist()
+    df = pd.read_excel(PATH,"Esa Fixes") # can also index sheet by name or fetch all sheets
+    stream_List = df['NEW ASSIGNED STREAM FINAL'].dropna().drop_duplicates().tolist()
     numOfStreams = len(stream_List)
+    print(f"Number of streams {numOfStreams}")
     streamDict = dict()
 
     countstreams = 0
     testingTags = list()
     for stream in stream_List:
-        df2 = pd.read_excel(PATH,"Corrections Submission")
-        tagsList = df2.loc[df2['Requested Update1'] == stream,'Tags'].dropna().tolist()
+        df2 = pd.read_excel(PATH,"Esa Fixes")
+        tagsList = df2.loc[df2['NEW ASSIGNED STREAM FINAL'] == stream,'Tag'].dropna().tolist()
         streamDict[stream] = tagsList
         testingTags.extend(tagsList)
         print(stream)
         countstreams+=1
     count = 0
-    with open("wrongTags.json", "w") as outfile: 
+    with open("dynamicTags.json", "w") as outfile: 
         json.dump(streamDict, outfile)
     print(streamDict)
     print(f"number of streams: {countstreams}")
@@ -269,4 +276,3 @@ if __name__ == "__main__":
     # driver = 1
     # bulkEditComponents(driver)
     pass
-
